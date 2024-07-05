@@ -19,7 +19,9 @@ const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code)
 
     const response = await fetch(
-      'YOUR_GET_ACCESS_TOKEN_ENDPOINT' + '/' + encodeCode
+      'https://v4hmbpw0ci.execute-api.eu-central-1.amazonaws.com/dev/api/token' +
+        '/' +
+        encodeCode
     )
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
