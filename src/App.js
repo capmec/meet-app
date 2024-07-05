@@ -10,7 +10,7 @@ import './App.css'
 
 const App = () => {
   const [allLocations, setAllLocations] = useState([])
-  const [currentNOE, setCurrentNOE] = useState(32)
+  const [numberOfEvents, setNumberOfEvents] = useState(32)
   const [events, setEvents] = useState([])
   const [currentCity, setCurrentCity] = useState('See all cities')
 
@@ -24,14 +24,14 @@ const App = () => {
       currentCity === 'See all cities'
         ? allEvents
         : allEvents.filter((event) => event.location === currentCity)
-    setEvents(filteredEvents.slice(0, currentNOE))
+    setEvents(filteredEvents.slice(0, numberOfEvents))
     setAllLocations(extractLocations(allEvents))
   }
 
   return (
     <div className='App'>
       <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
-      <NumberOfEvents />
+      <NumberOfEvents setNumberOfEvents={setNumberOfEvents} />
       <EventList events={events} />
     </div>
   )
