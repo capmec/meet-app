@@ -1,42 +1,37 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import EventList from './components/EventList'
+// src/App.js
+
 import CitySearch from './components/CitySearch'
+import EventList from './components/EventList'
 import NumberOfEvents from './components/NumberOfEvents'
+import { useEffect, useState } from 'react'
 import { extractLocations, getEvents } from './api'
+
 import './App.css'
 
-function App() {
-  const [events, setEvents] = useState([])
-  const [numberOfEvents, setNumberOfEvents] = useState(32)
+const App = () => {
   const [allLocations, setAllLocations] = useState([])
-  const [currentLocation, setCurrentLocation] = useState('See all cities')
-
-  const fetchData = useCallback(async () => {
-    try {
-      const allEvents = await getEvents()
-      const filteredEvents =
-        currentLocation === 'See all cities'
-          ? allEvents
-          : allEvents.filter((event) => event.location === currentLocation)
-      setEvents(filteredEvents.slice(0, numberOfEvents))
-      setAllLocations(extractLocations(allEvents))
-    } catch (error) {
-      console.error('Error fetching events:', error)
-      // Handle error state if necessary
-    }
-  }, [currentLocation, numberOfEvents])
+  const [currentNOE, setCurrentNOE] = useState(32)
+  const [events, setEvents] = useState([])
+  const [currentCity, setCurrentCity] = useState('See all cities')
 
   useEffect(() => {
     fetchData()
-  }, [fetchData])
+  }, [currentCity])
+
+  const fetchData = async () => {
+    const allEvents = await getEvents()
+    const filteredEvents =
+      currentCity === 'See all cities'
+        ? allEvents
+        : allEvents.filter((event) => event.location === currentCity)
+    setEvents(filteredEvents.slice(0, currentNOE))
+    setAllLocations(extractLocations(allEvents))
+  }
 
   return (
     <div className='App'>
-      <CitySearch
-        allLocations={allLocations}
-        setCurrentLocation={setCurrentLocation}
-      />
-      <NumberOfEvents setNumberOfEvents={setNumberOfEvents} />
+      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+      <NumberOfEvents />
       <EventList events={events} />
     </div>
   )
