@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData()
-  }, [currentCity])
+  }, [currentCity, numberOfEvents])
 
   const fetchData = async () => {
     const allEvents = await getEvents()
