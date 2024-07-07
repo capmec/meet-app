@@ -1,8 +1,12 @@
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
 import App from './App'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
+
 import * as atatus from 'atatus-spa'
-atatus.config('4c8b3a317b244fe6b9c0ff83defb7057').install()
+atatus.config('45f81883611c4a1c909200f1238b9794').install()
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
