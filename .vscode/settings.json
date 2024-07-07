@@ -107,6 +107,7 @@
 
   "git.autofetch": true,
   "cSpell.words": [
+    "atatus",
     "createjournal",
     "predeploy",
     "signin",
