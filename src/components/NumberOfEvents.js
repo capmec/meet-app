@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
 
-function NumberOfEvents({ setNumberOfEvents }) {
+function NumberOfEvents({ setNumberOfEvents, setErrorAlert }) {
   const handleInputChange = (event) => {
     const value = event.target.value
-    setNumberOfEvents(value)
-  }
 
+    if (isNaN(value)) {
+      setErrorAlert('value is not a number')
+    } else if (value <= 0) {
+      setErrorAlert('minimum value is 1')
+    } else {
+      setErrorAlert('')
+      setNumberOfEvents(value)
+    }
+  }
   return (
     <div id='number-of-events'>
       <input

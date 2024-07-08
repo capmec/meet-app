@@ -1,30 +1,29 @@
 /* eslint-disable testing-library/prefer-screen-queries */
-import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { render } from '@testing-library/react'
 import NumberOfEvents from '../components/NumberOfEvents'
 
-// Utility function to render the component and find elements by role
-const setup = () => {
-  const utils = render(<NumberOfEvents setNumberOfEvents={() => {}} />)
-  const input = utils.getByRole('textbox')
-  return { input, ...utils }
-}
+describe('<NumberOfEvents /> component', () => {
+  let NumberOfEventsComponent
+  beforeEach(() => {
+    NumberOfEventsComponent = render(
+      <NumberOfEvents setNumberOfEvents={() => {}} setErrorAlert={() => {}} />
+    )
+  })
 
-// Test to ensure the NumberOfEvents component contains an element with the role of textbox
-test('NumberOfEvents component contains an element with the role of textbox', () => {
-  const { input } = setup()
-  expect(input).toBeInTheDocument()
-})
+  test('has the input textbox', () => {
+    const input = NumberOfEventsComponent.queryByRole('textbox')
+    expect(input).toBeInTheDocument()
+  })
 
-// Test to ensure the default value of the input field is 32
-test('default value of the input field is 32', () => {
-  const { input } = setup()
-  expect(input.value).toBe('32')
-})
+  test('default number of events is 32', () => {
+    const input = NumberOfEventsComponent.queryByRole('textbox')
+    expect(input).toHaveValue('32')
+  })
 
-// Test to ensure the value of the NumberOfEvents component’s textbox changes accordingly when a user types in it
-test("value of the NumberOfEvents component's textbox changes correctly when user types in it", async () => {
-  const { input } = setup()
-  fireEvent.change(input, { target: { value: '10' } })
-  expect(input.value).toBe('10')
+  test('updates number of events when user types', async () => {
+    const input = NumberOfEventsComponent.queryByRole('textbox')
+    await userEvent.type(input, '{backspace}{backspace}10')
+    expect(input).toHaveValue('10')
+  })
 })
