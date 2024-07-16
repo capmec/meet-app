@@ -5,19 +5,21 @@ const EventGenresChart = ({ events }) => {
   const [data, setData] = useState([])
 
   const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular']
+  const colors = ['#C8A2C8', '#c9a461', '#FFB6C1', '#ADD8E6', '#7FFFD4']
 
   useEffect(() => {
     setData(getData())
   }, [`${events}`])
 
   const getData = () => {
-    const data = genres.map((genre) => {
+    const data = genres.map((genre, index) => {
       const filteredEvents = events.filter((event) =>
         event.summary.includes(genre)
       )
       return {
         name: genre,
         value: filteredEvents.length,
+        colors: colors[index],
       }
     })
     return data
@@ -58,7 +60,11 @@ const EventGenresChart = ({ events }) => {
           labelLine={false}
           label={renderCustomizedLabel}
           outerRadius={130}
-        />
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index]} />
+          ))}
+        </Pie>
       </PieChart>
     </ResponsiveContainer>
   )
