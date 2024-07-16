@@ -5,7 +5,7 @@ const EventGenresChart = ({ events }) => {
   const [data, setData] = useState([])
 
   const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular']
-  const colors = ['#C8A2C8', '#c9a461', '#FFB6C1', '#ADD8E6', '#7FFFD4']
+  const colors = ['#badf55', '#35b1c9', '#ebc83d', '#e96060', '#b06dad']
 
   useEffect(() => {
     setData(getData())
