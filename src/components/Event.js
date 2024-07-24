@@ -17,6 +17,9 @@ const Event = ({ event }) => {
         <div className='details'>
           <h3>Event Details</h3>
           <p>{event.details}</p>
+          <p>{event.description}</p>
+          <p>{event.summary}</p>
+          <p>{event.start}</p>
         </div>
       ) : null}
     </li>

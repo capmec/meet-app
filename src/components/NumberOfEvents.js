@@ -15,6 +15,7 @@ function NumberOfEvents({ setNumberOfEvents, setErrorAlert }) {
   }
   return (
     <div id='number-of-events'>
+      <label className='label'> Number of events: </label>
       <input
         type='text'
         defaultValue='32'
